@@ -20,7 +20,7 @@ export default function WhyPrizeSavings() {
         <div className="bg-[#2A0A0A] rounded-xl p-8 flex items-center justify-center">
           <div className="relative">
             <Image
-              src="/placeholder.svg?height=200&width=200"
+              src="/images/shield.png"
               alt="Shield with Chart"
               width={200}
               height={200}

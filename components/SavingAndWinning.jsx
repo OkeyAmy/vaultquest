@@ -1,59 +1,102 @@
-import Image from "next/image"
+"use client";
+
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
 
 export default function SavingAndWinning() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const cards = [
+    {
+      id: 1,
+      title: "Deposit",
+      description: "Deposit for a chance to win prizes.",
+      image: "/images/vault.png", 
+      rotate: -25,
+    },
+    {
+      id: 2,
+      title: "Win Prizes",
+      description: "Yield fron deposit fund prize",
+      image: "/images/percentage.png",
+      rotate: 0,
+    },
+    {
+      id: 3,
+      title: "Withdraw",
+      description: "Withdraw your deposit and prizes.",
+      image: "/images/envelop.png", 
+      rotate: 25,
+    },
+  ];
+
   return (
-    <section className="container mx-auto px-4 py-16 md:py-24">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">WinSave is for Saving & Winning</h2>
-      </div>
+		<div className="min-h-screen  flex flex-col items-center justify-center overflow-hidden">
+			<h1 className="text-4xl md:text-5xl font-bold text-white mb-20 text-center px-4">
+				VaultQuest is for Saving & Winning
+			</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <div className="text-center">
-          <h3 className="text-xl font-bold mb-4">Deposit</h3>
-          <div className="bg-[#2A0A0A] rounded-xl p-6 h-48 flex items-center justify-center">
-            <Image
-              src="/placeholder.svg?height=100&width=100"
-              alt="Deposit"
-              width={100}
-              height={100}
-              className="opacity-80"
-            />
-          </div>
-          <p className="mt-4 text-gray-300">Deposit funds to earn yield</p>
-        </div>
+			<div
+				ref={ref}
+				className="relative w-full max-w-[1200px] h-[400px] flex items-center justify-center"
+			>
+				<div className="relative w-[300px] h-[400px] perspective-[1000px]">
+					{cards.map((card, index) => (
+						<motion.div
+							key={card.id}
+							className="absolute top-0 left-0 w-[300px] h-[400px] rounded-2xl bg-[#2A0A0A] 
+                         shadow-[0_0_20px_rgba(0,0,0,0.3)] backdrop-blur-sm 
+                         flex flex-col items-center justify-center p-6 overflow-hidden origin-[60%_180%]"
+							initial={{
+								rotateY: 0,
+								rotateZ: 0,
+								scale: 0.9,
+								opacity: 0,
+							}}
+							animate={
+								isInView
+									? {
+											rotateY: 0,
+											rotateZ: card.rotate,
+											scale: 1,
+											opacity: 1,
+											x: card.rotate * 3, // Slight horizontal offset
+											transition: {
+												duration: 1,
+												delay: index * 0.2,
+												ease: [0.23, 1, 0.32, 1], // Smooth animation
+											},
+									  }
+									: {}
+							}
+							style={{
+								zIndex: index === 1 ? 3 : 1,
+							}}
+						>
+							{/* Image inside the card */}
+							<div className="relative w-full h-2/3 rounded-t-2xl overflow-hidden">
+								<Image
+									src={card.image}
+									alt={card.title}
+									layout="fill"
+									objectFit="cover"
+									className="rounded-t-2xl"
+								/>
+							</div>
 
-        <div className="text-center">
-          <h3 className="text-xl font-bold mb-4">Win Prizes</h3>
-          <div className="bg-[#2A0A0A] rounded-xl p-6 h-48 flex items-center justify-center">
-            <div className="relative">
-              <div className="text-yellow-500 text-7xl font-bold">%</div>
-              <Image
-                src="/placeholder.svg?height=80&width=80"
-                alt="Trophy"
-                width={80}
-                height={80}
-                className="absolute -top-10 -right-10"
-              />
-            </div>
-          </div>
-          <p className="mt-4 text-gray-300">100% of interest is paid as prizes</p>
-        </div>
-
-        <div className="text-center">
-          <h3 className="text-xl font-bold mb-4">Never Lose</h3>
-          <div className="bg-[#2A0A0A] rounded-xl p-6 h-48 flex items-center justify-center">
-            <Image
-              src="/placeholder.svg?height=100&width=100"
-              alt="Shield"
-              width={100}
-              height={100}
-              className="opacity-80"
-            />
-          </div>
-          <p className="mt-4 text-gray-300">Withdraw your deposit anytime</p>
-        </div>
-      </div>
-    </section>
-  )
+							{/* Text Content */}
+							<div className="p-4 text-center">
+								<h2 className="text-2xl font-bold text-white mb-2">
+									{card.title}
+								</h2>
+								<p className="text-gray-400">{card.description}</p>
+							</div>
+						</motion.div>
+					))}
+				</div>
+			</div>
+		</div>
+	);
 }
-
