@@ -1,24 +1,29 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import AppNav from "@/components/app/AppNav"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import { SolanaIcon } from "@/components/icons/SolanaIcon"
+// import { AtomIcon } from "@/components/icons/AtomIcon"
 import DepositModal from "@/components/app/DepositModal"
 
 export default function PrizesPage() {
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false)
   const [activeFilter, setActiveFilter] = useState("all")
-  const [selectedPrize, setSelectedPrize] = useState(null)
+  // const [selectedPrize, setSelectedPrize] = useState(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const prizes = [
     {
       id: 1,
       name: "Grand Prize",
-      network: "solana",
+      network: "Cosmos",
       amount: 23087.0,
       token: "SOL",
       tokenAmount: 0.23,
@@ -26,7 +31,7 @@ export default function PrizesPage() {
     {
       id: 2,
       name: "Weekly Prize",
-      network: "solana",
+      network: "Cosmos",
       amount: 12500.0,
       token: "SOL",
       tokenAmount: 0.15,
@@ -34,7 +39,7 @@ export default function PrizesPage() {
     {
       id: 3,
       name: "Daily Prize",
-      network: "solana",
+      network: "Cosmos",
       amount: 5000.0,
       token: "SOL",
       tokenAmount: 0.08,
@@ -42,7 +47,7 @@ export default function PrizesPage() {
     {
       id: 4,
       name: "Hourly Prize",
-      network: "solana",
+      network: "Cosmos",
       amount: 1000.0,
       token: "SOL",
       tokenAmount: 0.02,
@@ -50,7 +55,7 @@ export default function PrizesPage() {
     {
       id: 5,
       name: "Community Prize",
-      network: "solana",
+      network: "Cosmos",
       amount: 7500.0,
       token: "SOL",
       tokenAmount: 0.12,
@@ -58,7 +63,7 @@ export default function PrizesPage() {
     {
       id: 6,
       name: "Special Prize",
-      network: "solana",
+      network: "Cosmos",
       amount: 15000.0,
       token: "SOL",
       tokenAmount: 0.18,
@@ -68,7 +73,6 @@ export default function PrizesPage() {
   const filteredPrizes = activeFilter === "all" ? prizes : prizes.filter((p) => p.network === activeFilter)
 
   const handleOpenDeposit = (prize) => {
-    setSelectedPrize(prize)
     setIsDepositModalOpen(true)
   }
 
@@ -96,16 +100,16 @@ export default function PrizesPage() {
                     View All
                   </button>
                   <button
-                    className={`px-3 py-1 rounded-full text-sm ${activeFilter === "solana" ? "bg-red-600" : "hover:bg-[#3A0A0A]"}`}
-                    onClick={() => setActiveFilter("solana")}
+                    className={`px-3 py-1 rounded-full text-sm ${activeFilter === "Cosmos" ? "bg-red-600" : "hover:bg-[#3A0A0A]"}`}
+                    onClick={() => setActiveFilter("Cosmos")}
                   >
-                    Solana
+                    Cosmos
                   </button>
                   <button
-                    className={`px-3 py-1 rounded-full text-sm ${activeFilter === "ethereum" ? "bg-red-600" : "hover:bg-[#3A0A0A]"}`}
-                    onClick={() => setActiveFilter("ethereum")}
+                    className={`px-3 py-1 rounded-full text-sm ${activeFilter === "Atom" ? "bg-red-600" : "hover:bg-[#3A0A0A]"}`}
+                    onClick={() => setActiveFilter("Atom")}
                   >
-                    Ethereum
+                    Atom
                   </button>
                 </div>
               </div>
@@ -122,15 +126,14 @@ export default function PrizesPage() {
               {filteredPrizes.map((prize) => (
                 <div
                   key={prize.id}
-                  className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20 hover:border-red-500/50 transition-colors shadow-lg"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-gray-400">{prize.name}</span>
-                    <SolanaIcon className="w-6 h-6" />
-                  </div>
+                  className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20 hover:border-red-500/50 transition-colors shadow-lg">
                   <div className="text-2xl font-bold mb-1">
-                    ${prize.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    {mounted 
+                      ? `$${prize.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}`
+                      : `$${prize.amount}`}
                   </div>
+                  {/* Uncomment or import CosmosIcon if needed */}
+                  {/* <CosmosIcon className="w-6 h-6" /> */}
                   <div className="text-gray-400 text-sm mb-4">
                     + {prize.tokenAmount} {prize.token}
                   </div>

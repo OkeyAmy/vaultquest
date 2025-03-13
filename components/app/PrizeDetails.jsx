@@ -1,34 +1,33 @@
-import { SolanaIcon } from "@/components/icons/SolanaIcon"
+import { AtomIcon } from "@/components/icons/AtomIcon";
 
 export default function PrizeDetails() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="bg-[#1A0808] rounded-xl p-6 border border-red-900/20">
-        <div className="flex items-center gap-2 mb-4">
-          <SolanaIcon className="w-5 h-5" />
-          <span className="text-sm text-gray-400">Last 24h Deposits</span>
-        </div>
-        <div className="text-3xl font-bold">
-          $ 4,330<span className="text-sm">.00</span>
-        </div>
-      </div>
+	return (
+		<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+			<div className="bg-[#1A0808] rounded-xl p-6 border border-red-900/20">
+				<div className="flex items-center gap-2 mb-4">
+					<AtomIcon className="w-5 h-5" />
+					<span className="text-sm text-gray-400">Last 24h Deposits</span>
+				</div>
+				<div className="text-3xl font-bold">
+					$ 4,330<span className="text-sm">.00</span>
+				</div>
+			</div>
 
-      <div className="bg-[#1A0808] rounded-xl p-6 border border-red-900/20">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-sm text-gray-400">Total Deposited</span>
-        </div>
-        <div className="text-3xl font-bold">$2.3M</div>
-        <div className="text-sm text-gray-400 mt-1">$2,324,058 in TVL</div>
-      </div>
+			<div className="bg-[#1A0808] rounded-xl p-6 border border-red-900/20">
+				<div className="flex items-center gap-2 mb-4">
+					<span className="text-sm text-gray-400">Total Deposited</span>
+				</div>
+				<div className="text-3xl font-bold">$2.3M</div>
+				<div className="text-sm text-gray-400 mt-1">$2,324,058 in TVL</div>
+			</div>
 
-      <div className="bg-[#1A0808] rounded-xl p-6 border border-red-900/20">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-sm text-gray-400">Protocol</span>
-        </div>
-        <div className="text-3xl font-bold">AAVE</div>
-        <div className="text-sm text-gray-400 mt-1">aave.com</div>
-      </div>
-    </div>
-  )
+			<div className="bg-[#1A0808] rounded-xl p-6 border border-red-900/20">
+				<div className="flex items-center gap-2 mb-4">
+					<span className="text-sm text-gray-400">Protocol</span>
+				</div>
+				<div className="text-3xl font-bold">AAVE</div>
+				<div className="text-sm text-gray-400 mt-1">aave.com</div>
+			</div>
+		</div>
+	);
 }
-
