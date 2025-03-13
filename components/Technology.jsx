@@ -2,27 +2,30 @@ import Image from "next/image"
 
 export default function Technology() {
   const technologies = [
+		{
+			name: "ATOM",
+			description:
+				" a revolutionary ecosystem within the Cosmos network, comprising a collection of partially sovereign blockchains.",
+			icon: "/images/atom.png",
+		},
+		{
+			name: "CosmosSDK",
+			description:
+				"the first of many interconnected blockchains powered by the interchain stack: CometBFT, CosmosSDK, and IBC",
+			icon: "/images/cosmo.png",
+		},
     {
-      name: "Solana",
-      description: "High-performance blockchain with low transaction fees",
-      icon: "/placeholder.svg?height=60&width=60",
+      name: "Next.js",
+      description: "A React framework that enables server-side rendering and static website generation for fast performance.",
+      icon: "/images/nextjs.png",
     },
     {
-      name: "ERC-4626",
-      description: "Tokenized vault standard for maximum interoperability",
-      icon: "/placeholder.svg?height=60&width=60",
+      name: "The Atom Economic Zone (AEZ)",
+      description:
+        "Leveraging the power of ATOM to create innovative economic models that drive blockchain adoption.",
+      icon: "/images/aeze.png",
     },
-    {
-      name: "Chainlink VRF",
-      description: "Verifiable random function for transparent prize distribution",
-      icon: "/placeholder.svg?height=60&width=60",
-    },
-    {
-      name: "Zero-Knowledge Proofs",
-      description: "Privacy-preserving technology for secure transactions",
-      icon: "/placeholder.svg?height=60&width=60",
-    },
-  ]
+	];
 
   return (
     <section className="container mx-auto px-4 py-16 md:py-24">
@@ -39,7 +42,7 @@ export default function Technology() {
             key={index}
             className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20 shadow-lg hover:border-red-500/50 transition-all"
           >
-            <div className="flex justify-center mb-4">
+            {/* <div className="flex justify-center mb-4">
               <Image
                 src={tech.icon || "/placeholder.svg"}
                 alt={tech.name}
@@ -47,7 +50,7 @@ export default function Technology() {
                 height={60}
                 className="rounded-lg"
               />
-            </div>
+            </div> */}
             <h3 className="text-xl font-bold text-center mb-2">{tech.name}</h3>
             <p className="text-gray-300 text-center">{tech.description}</p>
           </div>
@@ -59,7 +62,7 @@ export default function Technology() {
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/2">
             <Image
-              src="/placeholder.svg?height=300&width=500"
+              src="/images/architecture.svg"
               alt="Architecture Diagram"
               width={500}
               height={300}

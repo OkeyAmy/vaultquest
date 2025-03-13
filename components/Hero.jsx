@@ -5,35 +5,60 @@ import { Button } from "@/components/ui/button"
 export default function Hero() {
   return (
     <section className="container mx-auto px-4 py-16 md:py-24 relative">
-      {/* Floating elements */}
-      <div className="absolute top-20 right-1/4 animate-float-slow">
-        <Image src="/placeholder.svg?height=60&width=60" alt="Diamond" width={60} height={60} className="opacity-80" />
-      </div>
-      <div className="absolute bottom-10 left-1/4 animate-float">
-        <Image src="/placeholder.svg?height=80&width=80" alt="Coin" width={80} height={80} className="opacity-80" />
-      </div>
-      <div className="absolute top-40 right-10 animate-float-medium">
-        <Image src="/placeholder.svg?height=70&width=70" alt="Dollar" width={70} height={70} className="opacity-80" />
-      </div>
-
-      <div className="text-center max-w-4xl mx-auto">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="text-blue-400">◆</span>
-        </div>
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-          The #1 Protocol <br />
-          for Real Adoption
-        </h1>
-        <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-          Our protocol gives users a chance at a large upside without risking their deposit.
-        </p>
-        <div className="flex justify-center">
-          <Link href="/app">
-            <Button className="bg-red-600 hover:bg-red-700 text-lg py-6 px-8 rounded-full">Launch App</Button>
-          </Link>
-        </div>
-      </div>
-    </section>
-  )
+              {/* Floating Elements */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-80 right-64  animate-float-slow">
+                  <Image
+                    src="/images/coinsilver.png"
+                    alt="Protocol Icon"
+                    width={300}
+                    height={300}
+                    className="rounded-full"
+                  />
+                </div>
+                <div className="absolute bottom-40 left-60 top-20 animate-float">
+                  <Image
+                    src="/images/cosmo.png"
+                    alt="Diamond"
+                    width={120}
+                    height={120}
+                  />
+                </div>
+                <div className="absolute bottom-40 right-60 top-20 animate-float">
+                  <Image
+                    src="/images/cosmo.png"
+                    alt="Diamond"
+                    width={50}
+                    height={50}
+                  />
+                </div>
+                <div className="absolute top-80 left-96 animate-float-medium">
+                  <Image
+                    src="/images/diamond.png"
+                    alt="Coin"
+                    width={150}
+                    height={150}
+                    className="rounded-full"
+                  />
+                </div>
+              </div>
+    
+              <div className="text-center max-w-4xl mx-auto relative z-10">
+                <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                  The #1 Protocol <br />
+                  for Real Adoption
+                </h1>
+                <p className="text-lg text-gray-300 mb-8">
+                  The permissionless protocol 86,000 people are using to win by
+                  saving
+                </p>
+                <Link href="/app">
+                  <Button className="bg-red-600 hover:bg-red-700 text-lg py-6 px-8 rounded-full">
+                    Launch DApp
+                  </Button>
+                </Link>
+              </div>
+            </section>
+      )
 }
 
