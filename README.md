@@ -130,7 +130,7 @@ The `VaultPage` component is the primary interface where users interact with pri
 
 1. **Clone the Repository:**
     ```sh
-    git clone <repository-url>
+    git clone https://github.com/Obiajulu-gif/vaultquest
     ```
 2. **Navigate to the Project Directory:**
     ```sh
