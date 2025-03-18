@@ -123,7 +123,7 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 								<SelectItem value="usdc">USDC</SelectItem>
 								<SelectItem value="dai">Atom</SelectItem>
 								<SelectItem value="usdt">USDT</SelectItem>
-								<SelectItem value="sol">Atom</SelectItem>
+								<SelectItem value="Atom">Atom</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>

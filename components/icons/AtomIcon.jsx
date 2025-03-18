@@ -10,11 +10,11 @@ export function AtomIcon({ className = "w-6 h-6" }) {
 				cx="100"
 				cy="100"
 				r="90"
-				stroke="white"
+				stroke="#6F6EFF"
 				strokeWidth="10"
-				fill="black"
+				fill="#121528"
 			/>
-			<g stroke="white" strokeWidth="5">
+			<g stroke="#6F6EFF" strokeWidth="5">
 				<ellipse
 					cx="100"
 					cy="100"
@@ -31,7 +31,7 @@ export function AtomIcon({ className = "w-6 h-6" }) {
 				/>
 				<ellipse cx="100" cy="100" rx="80" ry="40" />
 			</g>
-			<circle cx="100" cy="100" r="10" fill="white" />
+			<circle cx="100" cy="100" r="10" fill="#6F6EFF" />
 		</svg>
 	);
 }
