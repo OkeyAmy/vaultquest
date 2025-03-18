@@ -19,13 +19,13 @@ export default function VaultPage() {
 	const [vaults, setVaults] = useState([
 		{
 			id: 1,
-			name: "Prize DAI",
+			name: "Prize Atom",
 			network: "Cosmos",
 			apy: 11.67,
 			tvl: 2324058,
-			tvlToken: "DAI",
+			tvlToken: "Atom",
 			balance: 0,
-			balanceToken: "DAI",
+			balanceToken: "Atom",
 			users: 1243,
 			deposits: [
 				{ address: "cosm...gsye20", amount: 1000, date: "2023-12-15" },
@@ -157,11 +157,11 @@ export default function VaultPage() {
 									</button>
 									<button
 										className={`px-3 py-1 rounded-full text-sm ${
-											activeFilter === "ethereum"
+											activeFilter === "Atom"
 												? "bg-red-600"
 												: "hover:bg-[#3A0A0A]"
 										}`}
-										onClick={() => setActiveFilter("ethereum")}
+										onClick={() => setActiveFilter("Atom")}
 									>
 										Cosmos
 									</button>
