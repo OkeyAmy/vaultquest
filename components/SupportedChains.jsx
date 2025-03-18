@@ -22,7 +22,7 @@ export default function SupportedChains() {
 		},
 		{
 			name: "USDT",
-			logo: "/images/cosmo.png",
+			logo: "/images/usdt.png",
 			color: "bg-gradient-to-r from-orange-500 to-red-500",
 			description: "Chain for innovative decentralized apps",
 		},
