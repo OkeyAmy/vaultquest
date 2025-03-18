@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { WalletStatus } from "@cosmos-kit/core";
 import { useChain } from "@cosmos-kit/react";
 import { chains } from "chain-registry";
-import { ChainSelect } from "./chain";
+import { ChainSelect } from "./Chain";
 import { CHAIN_NAME, CHAIN_NAME_STORAGE_KEY } from "../config";
 import {
   ButtonConnect,
