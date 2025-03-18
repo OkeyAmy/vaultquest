@@ -8,6 +8,18 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { AtomIcon } from "@/components/icons/AtomIcon";
 import DepositModal from "@/components/app/DepositModal";
 import WithdrawModal from "@/components/app/WithdrawModal";
+import { Bar } from "react-chartjs-2";
+import {
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
+} from "chart.js";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function PrizePage() {
 	const router = useRouter();
@@ -20,8 +32,8 @@ export default function PrizePage() {
 		lastDeposits: 4330.0,
 		totalDeposited: 2300000,
 		tvl: 2324058,
-		protocol: "AAVE",
-		protocolUrl: "aave.com",
+		protocol: "Cosmo",
+		protocolUrl: "cosmos.network",
 		apr: 13.1,
 		distribution: "Every 7 day",
 		nextDrop: "in 3 days",
@@ -33,11 +45,43 @@ export default function PrizePage() {
 			{ amount: 0.21, frequency: "1024x Daily" },
 		],
 		winners: [
-			{ id: "0x6e8...7b28", date: "January 18", prize: "G0008 MTH" },
-			{ id: "0x6e8...7b29", date: "January 18", prize: "G0009 MTH" },
-			{ id: "0x6e8...7b30", date: "January 18", prize: "G0008 MTH" },
+			{ id: "cosm...gj90rc", date: "January 18", prize: "G0008 Atom" },
+			{ id: "cosm...gsye20", date: "January 18", prize: "G0009 Atom" },
+			{ id: "cosm...hjue79", date: "January 18", prize: "G0008 Atom" },
 		],
 		chartData: [65, 45, 30, 60, 45, 30, 70, 45],
+	};
+
+	const chartDataConfig = {
+		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+		datasets: [
+			{
+				label: "Prize Pool Contributions",
+				data: prizeData.chartData,
+				backgroundColor: "rgba(220,38,38,0.7)",
+				borderRadius: 4,
+			},
+		],
+	};
+
+	const options = {
+		responsive: true,
+		maintainAspectRatio: false,
+		scales: {
+			y: {
+				beginAtZero: true,
+				ticks: { color: "#fff" },
+				grid: { color: "rgba(255,255,255,0.2)" },
+			},
+			x: {
+				ticks: { color: "#fff" },
+				grid: { color: "rgba(255,255,255,0.2)" },
+			},
+		},
+		plugins: {
+			legend: { labels: { color: "#fff" } },
+			title: { display: false },
+		},
 	};
 
 	return (
@@ -121,29 +165,8 @@ export default function PrizePage() {
 							<h3 className="text-lg font-medium mb-6">
 								Prize Pool Contributions
 							</h3>
-							<div className="h-64 flex items-end justify-between gap-2">
-								{prizeData.chartData.map((value, i) => (
-									<div key={i} className="w-full">
-										<div
-											className="bg-red-600 rounded-t-sm"
-											style={{ height: `${value}%` }}
-										></div>
-										<div className="text-xs text-gray-400 text-center mt-2">
-											{
-												[
-													"Jan",
-													"Feb",
-													"Mar",
-													"Apr",
-													"May",
-													"Jun",
-													"Jul",
-													"Aug",
-												][i]
-											}
-										</div>
-									</div>
-								))}
+							<div className="h-64">
+								<Bar data={chartDataConfig} options={options} />
 							</div>
 						</div>
 

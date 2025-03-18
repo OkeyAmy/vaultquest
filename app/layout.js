@@ -8,7 +8,6 @@ export const metadata = {
   icon: "/images/logo.png",
   description:
     "Save & win with no-loss prize savings. Deposit funds into prize vaults and stand a chance to win prizes without risking your deposit.",
-  generator: "v0.dev",
 };
 
 export default function RootLayout({ children }) {

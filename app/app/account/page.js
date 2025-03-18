@@ -12,11 +12,11 @@ export default function AccountPage() {
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false)
 
   const recentWins = [
-    { network: "Starknet", address: "0x8e49...7028", date: "January 18", price: "0.0009 WETH" },
-    { network: "USDC", address: "0x8e49...7028", date: "January 18", price: "0.0009 WETH" },
-    { network: "USDT", address: "0x8e49...7028", date: "January 18", price: "0.0009 WETH" },
-    { network: "Starknet", address: "0x8e49...7028", date: "January 18", price: "0.0009 WETH" },
-    { network: "USDC", address: "0x8e49...7028", date: "January 18", price: "0.0009 WETH" },
+    { network: "Atom", address: "cosm...gsye20", date: "January 18", price: "0.0009 atom" },
+    { network: "USDC", address: "cosm...hjue79", date: "January 18", price: "0.0009 atom" },
+    { network: "USDT", address: "cosm...gj90rc", date: "January 18", price: "0.0009 atom" },
+    { network: "Atom", address: "cosm...hjue79", date: "January 18", price: "0.0009 atom" },
+    { network: "USDC", address: "cosm...gsye20", date: "January 18", price: "0.0009 atom" },
   ]
 
   return (

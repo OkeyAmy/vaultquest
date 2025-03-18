@@ -28,9 +28,9 @@ export default function VaultPage() {
 			balanceToken: "DAI",
 			users: 1243,
 			deposits: [
-				{ address: "0x8e49...7028", amount: 1000, date: "2023-12-15" },
-				{ address: "0x7a32...9f41", amount: 500, date: "2023-12-14" },
-				{ address: "0x3b21...4e67", amount: 2500, date: "2023-12-13" },
+				{ address: "cosm...gsye20", amount: 1000, date: "2023-12-15" },
+				{ address: "cosm...4s6e60", amount: 500, date: "2023-12-14" },
+				{ address: "cosm...6et420", amount: 2500, date: "2023-12-13" },
 			],
 		},
 		{
@@ -44,24 +44,24 @@ export default function VaultPage() {
 			balanceToken: "USDC",
 			users: 987,
 			deposits: [
-				{ address: "0x6c12...3e45", amount: 750, date: "2023-12-15" },
-				{ address: "0x9d87...2a34", amount: 1200, date: "2023-12-12" },
+				{ address: "cosm...gsye20", amount: 750, date: "2023-12-15" },
+				{ address: "cosm...g3yd04", amount: 1200, date: "2023-12-12" },
 			],
 		},
 		{
 			id: 3,
-			name: "Prize SOL",
+			name: "Prize Atom",
 			network: "Cosmos",
 			apy: 14.25,
 			tvl: 980000,
-			tvlToken: "SOL",
+			tvlToken: "Atom",
 			balance: 0,
-			balanceToken: "SOL",
+			balanceToken: "Atom",
 			users: 654,
 			deposits: [
-				{ address: "0x5f23...8c91", amount: 300, date: "2023-12-14" },
-				{ address: "0x2e56...7d12", amount: 450, date: "2023-12-13" },
-				{ address: "0x8a34...1f67", amount: 600, date: "2023-12-10" },
+				{ address: "cosm...gsye20", amount: 300, date: "2023-12-14" },
+				{ address: "cosm...52ywe20", amount: 450, date: "2023-12-13" },
+				{ address: "cosm...33beq0", amount: 600, date: "2023-12-10" },
 			],
 		},
 		{
@@ -74,7 +74,7 @@ export default function VaultPage() {
 			balance: 0,
 			balanceToken: "USDT",
 			users: 432,
-			deposits: [{ address: "0x4b78...9e23", amount: 850, date: "2023-12-15" }],
+			deposits: [{ address: "cosm...gsye20", amount: 850, date: "2023-12-15" }],
 		},
 	]);
 
@@ -91,7 +91,7 @@ export default function VaultPage() {
 		setIsDepositModalOpen(true);
 	};
 
-	const handleDeposit = (vaultId, amount, address = "0x6e8...7b28") => {
+	const handleDeposit = (vaultId, amount, address = "cosm...gsye20") => {
 		setVaults((prevVaults) =>
 			prevVaults.map((vault) => {
 				if (vault.id === vaultId) {

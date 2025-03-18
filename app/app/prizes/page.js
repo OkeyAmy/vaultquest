@@ -25,7 +25,7 @@ export default function PrizesPage() {
       name: "Grand Prize",
       network: "Cosmos",
       amount: 23087.0,
-      token: "SOL",
+      token: "atom",
       tokenAmount: 0.23,
     },
     {
@@ -33,7 +33,7 @@ export default function PrizesPage() {
       name: "Weekly Prize",
       network: "Cosmos",
       amount: 12500.0,
-      token: "SOL",
+      token: "atom",
       tokenAmount: 0.15,
     },
     {
@@ -41,7 +41,7 @@ export default function PrizesPage() {
       name: "Daily Prize",
       network: "Cosmos",
       amount: 5000.0,
-      token: "SOL",
+      token: "atom",
       tokenAmount: 0.08,
     },
     {
@@ -49,7 +49,7 @@ export default function PrizesPage() {
       name: "Hourly Prize",
       network: "Cosmos",
       amount: 1000.0,
-      token: "SOL",
+      token: "atom",
       tokenAmount: 0.02,
     },
     {
@@ -57,7 +57,7 @@ export default function PrizesPage() {
       name: "Community Prize",
       network: "Cosmos",
       amount: 7500.0,
-      token: "SOL",
+      token: "atom",
       tokenAmount: 0.12,
     },
     {
@@ -65,7 +65,7 @@ export default function PrizesPage() {
       name: "Special Prize",
       network: "Cosmos",
       amount: 15000.0,
-      token: "SOL",
+      token: "atpm",
       tokenAmount: 0.18,
     },
   ]
