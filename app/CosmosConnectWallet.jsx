@@ -23,7 +23,7 @@ const CosmosConnectWallet = () => {
           relayUrl: "wss://relay.walletconnect.org",
           metadata: {
             name: "Vault Quest",
-            description: "Cosmos Kit dApp built by Create Cosmos App",
+            description: "Vault Quest",
             url: "https://docs.hyperweb.io/cosmos-kit/",
             icons: [],
           },
