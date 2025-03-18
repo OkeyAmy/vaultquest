@@ -27,7 +27,7 @@ export default function AppPage() {
               className="bg-red-600/90 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full backdrop-blur-sm shadow-lg"
               onClick={handleConnectWallet}
             >
-              Connect Wallet
+              Start Saving
             </Button>
           ) : (
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
