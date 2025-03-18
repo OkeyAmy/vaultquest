@@ -121,9 +121,9 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 							</SelectTrigger>
 							<SelectContent className="bg-[#1A0808] border border-red-900/20">
 								<SelectItem value="usdc">USDC</SelectItem>
-								<SelectItem value="dai">DAI</SelectItem>
+								<SelectItem value="dai">Atom</SelectItem>
 								<SelectItem value="usdt">USDT</SelectItem>
-								<SelectItem value="sol">SOL</SelectItem>
+								<SelectItem value="sol">Atom</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -158,7 +158,7 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 								<SelectValue placeholder="Select Yield Source" />
 							</SelectTrigger>
 							<SelectContent className="bg-[#1A0808] border border-red-900/20">
-								<SelectItem value="aave">Aave</SelectItem>
+								<SelectItem value="aave">Cosmo</SelectItem>
 								<SelectItem value="compound">Compound</SelectItem>
 								<SelectItem value="lido">Lido</SelectItem>
 								<SelectItem value="marinade">Marinade</SelectItem>

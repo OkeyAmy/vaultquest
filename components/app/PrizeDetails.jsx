@@ -25,8 +25,8 @@ export default function PrizeDetails() {
 				<div className="flex items-center gap-2 mb-4">
 					<span className="text-sm text-gray-400">Protocol</span>
 				</div>
-				<div className="text-3xl font-bold">AAVE</div>
-				<div className="text-sm text-gray-400 mt-1">aave.com</div>
+				<div className="text-3xl font-bold">Cosmos</div>
+				<div className="text-sm text-gray-400 mt-1">https://cosmos.network/</div>
 			</div>
 		</div>
 	);

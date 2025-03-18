@@ -21,7 +21,7 @@ export default function SupportedChains() {
 			description: "Stablecoin for reliable transactions",
 		},
 		{
-			name: "UDST",
+			name: "USDT",
 			logo: "/images/cosmo.png",
 			color: "bg-gradient-to-r from-orange-500 to-red-500",
 			description: "Chain for innovative decentralized apps",
