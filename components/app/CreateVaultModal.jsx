@@ -119,11 +119,11 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
 								<SelectValue placeholder="Select Token" />
 							</SelectTrigger>
-							<SelectContent className="bg-[#1A0808] border border-red-900/20">
+							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
 								<SelectItem value="usdc">USDC</SelectItem>
 								<SelectItem value="dai">Atom</SelectItem>
 								<SelectItem value="usdt">USDT</SelectItem>
-								<SelectItem value="Atom">Atom</SelectItem>
+								<SelectItem value="sol">Atom</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -138,7 +138,7 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
 								<SelectValue placeholder="Select Network" />
 							</SelectTrigger>
-							<SelectContent className="bg-[#1A0808] border border-red-900/20">
+							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
 								<SelectItem value="solana">Atom</SelectItem>
 								<SelectItem value="ethereum">Cosmos</SelectItem>
 							</SelectContent>
@@ -157,7 +157,7 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
 								<SelectValue placeholder="Select Yield Source" />
 							</SelectTrigger>
-							<SelectContent className="bg-[#1A0808] border border-red-900/20">
+							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
 								<SelectItem value="aave">Cosmo</SelectItem>
 								<SelectItem value="compound">Compound</SelectItem>
 								<SelectItem value="lido">Lido</SelectItem>
@@ -178,7 +178,7 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
 								<SelectValue placeholder="Select Draw Duration" />
 							</SelectTrigger>
-							<SelectContent className="bg-[#1A0808] border border-red-900/20">
+							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
 								<SelectItem value="daily">Daily</SelectItem>
 								<SelectItem value="weekly">Weekly</SelectItem>
 								<SelectItem value="biweekly">Bi-weekly</SelectItem>
