@@ -31,7 +31,7 @@ export default function SupportedChains() {
   return (
     <div className="py-8 overflow-hidden bg-[#1A0808]/30 backdrop-blur-sm border-y border-red-900/20">
       <div className="container mx-auto px-4 mb-4">
-        <h3 className="text-center text-xl font-bold">Supported Blockchains</h3>
+        <h3 className="text-center text-xl font-bold">Supported Tokens</h3>
       </div>
 
       <div

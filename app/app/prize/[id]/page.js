@@ -32,7 +32,7 @@ export default function PrizePage() {
 		lastDeposits: 4330.0,
 		totalDeposited: 2300000,
 		tvl: 2324058,
-		protocol: "Cosmo",
+		protocol: "Cosmos",
 		protocolUrl: "cosmos.network",
 		apr: 13.1,
 		distribution: "Every 7 day",
