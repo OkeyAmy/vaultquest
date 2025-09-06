@@ -1,5 +1,5 @@
 {
-  "name": "my-v0-project",
+  "name": "vaultquest",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,6 @@
   },
   "dependencies": {
     "@chain-registry/types": "^0.50.94",
-    "@cosmjs/cosmwasm-stargate": "^0.33.1",
-    "@cosmjs/stargate": "^0.33.1",
-    "@cosmos-kit/react": "^2.21.7",
     "@hookform/resolvers": "^3.9.1",
     "@interchain-ui/react": "^1.26.2",
     "@interchain-ui/react-no-ssr": "^0.1.12",
@@ -51,7 +48,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
-    "cosmos-kit": "^2.7.1",
     "date-fns": "3.0.0",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "^12.5.0",
