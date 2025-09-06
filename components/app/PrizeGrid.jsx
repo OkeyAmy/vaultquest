@@ -55,7 +55,7 @@ export default function PrizeGrid() {
               height={100}
               width={100}
               alt="atom"
-              src="/images/atom.png"
+              src="/images/avax.png"
               className="w-6 h-6"
             />
           </div>
@@ -63,7 +63,7 @@ export default function PrizeGrid() {
             $
             {prize.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
-          <div className="text-gray-400 text-sm mb-4">+ {prize.atom} ATOM</div>
+          <div className="text-gray-400 text-sm mb-4">+ {prize.atom} AVAX</div>
           <div className="text-red-500 text-sm hover:text-red-400 transition-colors">
             Click to view
           </div>

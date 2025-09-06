@@ -82,9 +82,9 @@ VaultQuest leverages tokenized vaults built on the ERC4626 standard—a modern E
 ├── lib
 ├── public
 │   └── images
-│       ├── atom.png
+│       ├── avax.png
 │       ├── usdc.png
-│       └── cosmo.png
+│       └── usdt.png
 └── styles
 ```
 

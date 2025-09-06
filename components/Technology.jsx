@@ -6,7 +6,7 @@ export default function Technology() {
 			name: "ATOM",
 			description:
 				" a revolutionary ecosystem within the Cosmos network, comprising a collection of partially sovereign blockchains.",
-			icon: "/images/atom.png",
+			icon: "/images/avax.png",
 		},
 		{
 			name: "CosmosSDK",
