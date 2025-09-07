@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
-import CosmosConnectWallet from "../../app/CosmosConnectWallet";
+import { AvaxConnectButton } from "../../AvaxConnectButton";
 
 export default function AppNav() {
   const pathname = usePathname();
@@ -59,7 +59,7 @@ export default function AppNav() {
             </Link>
           </div>
           <div>
-            <CosmosConnectWallet />
+            <AvaxConnectButton />
           </div>
         </div>
       </div>

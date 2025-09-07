@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import AppNav from "@/components/app/AppNav"
+import  AppNav from "@/components/app/AppNav"
 import { Button } from "@/components/ui/button"
 import PrizeGrid from "@/components/app/PrizeGrid"
 

@@ -30,52 +30,22 @@ export const AvaxConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button onClick={openConnectModal} type="button">
+                  <button onClick={openConnectModal} type="button" className="bg-red-600/90 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full backdrop-blur-sm text-sm shadow-lg">
                     Connect Wallet
                   </button>
                 );
               }
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button">
+                  <button onClick={openChainModal} type="button" className="bg-red-600/90 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full backdrop-blur-sm shadow-lg">
                     Wrong network
                   </button>
                 );
               }
               return (
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <button
-                    onClick={openChainModal}
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    type="button"
-                  >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 12,
-                          height: 12,
-                          borderRadius: 999,
-                          overflow: 'hidden',
-                          marginRight: 4,
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          <img
-                            alt={chain.name ?? 'Chain icon'}
-                            src={chain.iconUrl}
-                            style={{ width: 12, height: 12 }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    {chain.name}
-                  </button>
-                  <button onClick={openAccountModal} type="button">
+                  <button onClick={openAccountModal} type="button" className="bg-red-600/90 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full backdrop-blur-sm shadow-lg">
                     {account.displayName}
-                    {account.displayBalance
-                      ? ` (${account.displayBalance})`
-                      : ''}
                   </button>
                 </div>
               );
