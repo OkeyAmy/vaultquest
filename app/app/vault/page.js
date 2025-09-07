@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus, Users, TrendingUp, Wallet } from "lucide-react";
 import CreateVaultModal from "@/components/app/CreateVaultModal";
 import DepositModal from "@/components/app/DepositModal";
+import WithdrawalModal from "@/components/app/WithdrawalModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RecentDeposits from "@/components/RecentDeposits";
 
@@ -30,6 +31,7 @@ export default function VaultPage() {
 	// UI State
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+	const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
 	const [selectedVault, setSelectedVault] = useState(null);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [activeFilter, setActiveFilter] = useState("all");
@@ -90,7 +92,6 @@ export default function VaultPage() {
 				: [],
 	});
 
-	// ---------- NEW wagmi reads: ------------
 	// 1) For each vault, call getVaultDepositors(vaultId)
 	const {
 		data: vaultDepositorsData,
@@ -354,7 +355,21 @@ export default function VaultPage() {
 	};
 
 	const handleWithdrawFromVault = () => {
-		if (vaultId === undefined || vaultId === null) return;
+		if (vaultId === undefined || vaultId === null || !selectedVault) return;
+
+		const maxWithdraw = selectedVault.balance || 0;
+
+		if (!withdrawalAmount || Number(withdrawalAmount) <= 0) {
+			setError("Please enter a valid withdrawal amount");
+			return;
+		}
+
+		if (Number(withdrawalAmount) > maxWithdraw) {
+			setError(`You can only withdraw up to ${maxWithdraw.toFixed(4)} ${selectedVault.balanceToken}`);
+			return;
+		}
+
+		setError("");
 
 		writeContract({
 			...vaultData,
@@ -364,6 +379,7 @@ export default function VaultPage() {
 
 		setSubmitted(true);
 	};
+
 
 	const handleOpenDeposit = (vault) => {
 		setSelectedVault(vault);
@@ -524,13 +540,29 @@ export default function VaultPage() {
 											</div>
 										</div>
 
-										<Button
-											className="w-full bg-red-600/90 hover:bg-red-700 backdrop-blur-sm shadow-lg"
-											onClick={() => handleOpenDeposit(vault)}
-											disabled={!vault.active || vault.timeLeft <= 0}
-										>
-											{vault.timeLeft <= 0 ? "Expired" : "Deposit"}
-										</Button>
+										<div className="flex flex-col gap-2">
+											<Button
+												className="w-full bg-red-600/90 hover:bg-red-700 backdrop-blur-sm shadow-lg"
+												onClick={() => handleOpenDeposit(vault)}
+												disabled={!vault.active || vault.timeLeft <= 0}
+											>
+												{vault.timeLeft <= 0 ? "Expired" : "Deposit"}
+											</Button>
+
+											<Button
+												variant="outline"
+												className="w-full outline-[#E3E3E3] outline outline-1 border-red-900/20 hover:bg-red-600/10 backdrop-blur-sm shadow-lg"
+												onClick={() => {
+													setSelectedVault(vault);
+													setVaultId(vault.id);
+													setIsWithdrawalModalOpen(true);
+												}}
+												disabled={!vault.active || vault.timeLeft <= 0}
+											>
+												Withdraw
+											</Button>
+
+										</div>
 									</div>
 								))
 							) : (
@@ -635,6 +667,17 @@ export default function VaultPage() {
 				onDeposit={handleFundVault}
 				depositAmount={depositAmount}
 				setDepositAmount={setDepositAmount}
+				error={error}
+				success={success}
+				isPending={isPending || isConfirming}
+			/>
+			<WithdrawalModal
+				isOpen={isWithdrawalModalOpen}
+				onClose={() => setIsWithdrawalModalOpen(false)}
+				selectedVault={selectedVault}
+				onWithdraw={handleWithdrawFromVault}
+				withdrawalAmount={withdrawalAmount}
+				setWithdrawalAmount={setWithdrawalAmount}
 				error={error}
 				success={success}
 				isPending={isPending || isConfirming}
