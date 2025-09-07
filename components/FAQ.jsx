@@ -41,46 +41,46 @@ export default function FAQ() {
 
 	return (
 		<section id="faq" className="container mx-auto px-4 py-16 md:py-24">
-			<div className="text-center mb-16">
-				<h2 className="text-3xl md:text-4xl font-bold mb-4">
+			<div className="text-center mb-12 md:mb-16">
+				<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
 					Frequently Asked Questions
 				</h2>
-				<p className="text-gray-300 max-w-2xl mx-auto">
+				<p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
 					Get answers to the most common questions about VaultQuest
 				</p>
 			</div>
 
-			<div className="max-w-3xl mx-auto space-y-4">
+			<div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
 				{faqs.map((faq, index) => (
 					<div
 						key={index}
 						className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl border border-red-900/20 shadow-lg overflow-hidden"
 					>
 						<button
-							className="w-full p-6 text-left flex justify-between items-center"
+							className="w-full p-4 md:p-6 text-left flex justify-between items-start md:items-center gap-4"
 							onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
 						>
-							<h3 className="text-xl font-bold">{faq.question}</h3>
+							<h3 className="text-base md:text-xl font-bold text-left">{faq.question}</h3>
 							{openIndex === index ? (
-								<ChevronUp className="text-red-500 flex-shrink-0" />
+								<ChevronUp className="text-red-500 flex-shrink-0 mt-1 md:mt-0" />
 							) : (
-								<ChevronDown className="text-red-500 flex-shrink-0" />
+								<ChevronDown className="text-red-500 flex-shrink-0 mt-1 md:mt-0" />
 							)}
 						</button>
 						<div
-							className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-								openIndex === index ? "max-h-96 pb-6" : "max-h-0"
+							className={`px-4 md:px-6 overflow-hidden transition-all duration-300 ease-in-out ${
+								openIndex === index ? "max-h-96 pb-4 md:pb-6" : "max-h-0"
 							}`}
 						>
-							<p className="text-gray-300">{faq.answer}</p>
+							<p className="text-gray-300 text-sm md:text-base">{faq.answer}</p>
 						</div>
 					</div>
 				))}
 			</div>
 
-			<div className="mt-12 text-center">
-				<p className="text-gray-300">Still have questions?</p>
-				<a href="#" className="text-red-500 hover:text-red-400 font-bold">
+			<div className="mt-8 md:mt-12 text-center">
+				<p className="text-gray-300 text-sm md:text-base">Still have questions?</p>
+				<a href="#" className="text-red-500 hover:text-red-400 font-bold text-sm md:text-base">
 					Contact our support team →
 				</a>
 			</div>

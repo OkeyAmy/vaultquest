@@ -106,9 +106,9 @@ export default function SavingAndWinning() {
 			</div>
 
 			{/* Mobile Version */}
-			<div className="md:hidden w-full max-w-sm">
+			<div className="md:hidden w-full max-w-sm mx-auto">
 				<h1 className="text-3xl font-bold text-white mb-12 text-center leading-tight">
-					WinSave is<br />for Saving & Winning
+					VaultQuest is<br />for Saving & Winning
 				</h1>
 
 				<div className="space-y-6">
