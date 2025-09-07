@@ -9,11 +9,15 @@ export const metadata = {
   icon: "/images/logo.png",
   description:
     "Save & win with no-loss prize savings. Deposit funds into prize vaults and stand a chance to win prizes without risking your deposit.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      </head>
       <body className={inter.className}>
         <Provider>
           {children}

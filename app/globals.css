@@ -87,6 +87,51 @@
     @apply backdrop-blur-sm shadow-md;
   }
 
+  /* Mobile optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  .mobile-safe-area {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .mobile-scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Responsive text scaling */
+  .text-responsive {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
+  }
+
+  .text-responsive-xl {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .text-responsive-2xl {
+    font-size: clamp(1.875rem, 6vw, 3rem);
+  }
+
+  .text-responsive-3xl {
+    font-size: clamp(2.25rem, 8vw, 4rem);
+  }
+
+  /* Mobile-first spacing */
+  .mobile-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .mobile-margin {
+    @apply mx-4 sm:mx-6 lg:mx-8;
+  }
+
   /* Marquee styles */
   .marquee-mask {
     mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
