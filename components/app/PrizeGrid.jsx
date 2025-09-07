@@ -42,29 +42,29 @@ export default function PrizeGrid() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
       {prizes.map((prize) => (
         <Link
           key={prize.id}
           href={`/app/prize/${prize.id}`}
-          className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20 hover:border-red-500/50 transition-colors shadow-lg"
+          className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-red-900/20 hover:border-red-500/50 transition-colors shadow-lg"
         >
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-gray-400">{prize.name}</span>
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <span className="text-gray-400 text-sm md:text-base">{prize.name}</span>
             <Image
               height={100}
               width={100}
               alt="atom"
               src="/images/avax.png"
-              className="w-6 h-6"
+              className="w-5 h-5 md:w-6 md:h-6"
             />
           </div>
-          <div className="text-2xl font-bold mb-1">
+          <div className="text-xl md:text-2xl font-bold mb-1">
             $
             {prize.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
-          <div className="text-gray-400 text-sm mb-4">+ {prize.atom} AVAX</div>
-          <div className="text-red-500 text-sm hover:text-red-400 transition-colors">
+          <div className="text-gray-400 text-xs md:text-sm mb-3 md:mb-4">+ {prize.atom} AVAX</div>
+          <div className="text-red-500 text-xs md:text-sm hover:text-red-400 transition-colors">
             Click to view
           </div>
         </Link>
