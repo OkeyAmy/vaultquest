@@ -18,16 +18,16 @@ export default function Hero() {
                 </div>
                 <div className="absolute bottom-40 left-60 top-20 animate-float">
                   <Image
-                    src="/images/cosmo.png"
-                    alt="Diamond"
+                    src="/aval.png"
+                    alt="Avalanche"
                     width={120}
                     height={120}
                   />
                 </div>
                 <div className="absolute bottom-40 right-60 top-20 animate-float">
                   <Image
-                    src="/images/cosmo.png"
-                    alt="Diamond"
+                    src="/avall.png"
+                    alt="Avalanche"
                     width={50}
                     height={50}
                   />
