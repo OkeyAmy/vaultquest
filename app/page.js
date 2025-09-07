@@ -24,10 +24,10 @@ export default function Home() {
         {/* <SupportedChains /> */}
         <SavingAndWinning />
         <WhyPrizeSavings />
-        <Technology />
-        <Roadmap />
-        <GetInvolved />
-        <FAQ />
+        {/* <Technology /> */}
+        {/* <Roadmap /> */}
+        {/* <GetInvolved /> */}
+        {/* <FAQ /> */}
       </main>
 
       <Footer />
