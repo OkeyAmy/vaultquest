@@ -21,7 +21,7 @@ export default function Home() {
       <main>
         <Hero />
         <Stats />
-        <SupportedChains />
+        {/* <SupportedChains /> */}
         <SavingAndWinning />
         <WhyPrizeSavings />
         <Technology />
