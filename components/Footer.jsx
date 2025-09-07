@@ -3,106 +3,79 @@ import Image from "next/image"
 
 export default function Footer() {
   return (
-		<footer className="bg-[#200707] py-12">
-			<div className="container mx-auto px-4">
-				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-					<div>
-						<div className="flex items-center gap-2 mb-4">
-							<Image
-								src="/images/logo.png"
-								alt="VaultQuest Logo"
-								width={40}
-								height={40}
-								className="rounded-full"
-							/>
-							<span className="text-xl font-bold">
-								Vault<span className="text-red-600">Quest</span>
-							</span>
-						</div>
-						<p className="text-gray-400">
-							A no-loss prize saving protocol built on Starknet.
-						</p>
-					</div>
+    <footer className="bg-[#100202] py-12">
+      <div className="container mx-auto px-4">
+        {/* Mobile Layout */}
+        <div className="md:hidden flex flex-col items-center text-center space-y-6">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Image
+              src="/images/logo.png"
+              alt="VaultQuest Logo"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <span className="text-lg font-bold text-white">
+              Vault<span className="text-red-500">Quest</span>
+            </span>
+          </div>
 
-					<div>
-						<h4 className="text-lg font-bold mb-4">Protocol</h4>
-						<ul className="space-y-2">
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									How it works
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Tokenomics
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Security
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Documentation
-								</Link>
-							</li>
-						</ul>
-					</div>
+          {/* Navigation Links */}
+          <div className="flex flex-col items-center space-y-4">
+            <Link href="/" className="text-white hover:text-red-500 text-base transition-colors">
+              Home
+            </Link>
+            <Link href="/winners" className="text-white hover:text-red-500 text-base transition-colors">
+              Winners
+            </Link>
+            <Link href="/doc" className="text-white hover:text-red-500 text-base transition-colors">
+              Doc
+            </Link>
+          </div>
 
-					<div>
-						<h4 className="text-lg font-bold mb-4">Community</h4>
-						<ul className="space-y-2">
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Discord
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Twitter
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Telegram
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Blog
-								</Link>
-							</li>
-						</ul>
-					</div>
+          {/* Copyright */}
+          <div className="text-gray-400 text-sm">
+            © 2025 Hello, VaultQuest, LLC
+          </div>
+        </div>
 
-					<div>
-						<h4 className="text-lg font-bold mb-4">Legal</h4>
-						<ul className="space-y-2">
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Terms of Service
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Privacy Policy
-								</Link>
-							</li>
-							<li>
-								<Link href="#" className="text-gray-400 hover:text-red-500">
-									Disclaimer
-								</Link>
-							</li>
-						</ul>
-					</div>
-				</div>
+        {/* Desktop Layout */}
+        <div className="hidden md:flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Image
+              src="/images/logo.png"
+              alt="VaultQuest Logo"
+              width={24}
+              height={24}
+              className="rounded-full"
+            />
+            <span className="text-sm font-bold text-white">
+              Vault<span className="text-red-500">Quest</span>
+            </span>
+          </div>
 
-				<div className="border-t border-[#3A1010] mt-12 pt-8 text-center text-gray-400">
-					<p>© 2023 VaultQuest. All rights reserved.</p>
-				</div>
-			</div>
-		</footer>
-	);
+          {/* Navigation Links */}
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-gray-300 hover:text-white text-sm transition-colors">
+              Home
+            </Link>
+            <Link href="/winners" className="text-gray-300 hover:text-white text-sm transition-colors">
+              Winners
+            </Link>
+            <Link href="/doc" className="text-gray-300 hover:text-white text-sm transition-colors">
+              Doc
+            </Link>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-gray-400 text-sm">
+            © 2025 Hello, VaultQuest, LLC
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }
 

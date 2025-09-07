@@ -54,19 +54,19 @@ export default function Roadmap() {
 
   return (
     <section className="container mx-auto px-4 py-16 md:py-24 relative">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Protocol Roadmap</h2>
-        <p className="text-gray-300 max-w-2xl mx-auto">
+      <div className="text-center mb-12 md:mb-16">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Protocol Roadmap</h2>
+        <p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
           Our strategic plan for building and scaling the VaultQuest protocol
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-8 border border-red-900/20 shadow-lg">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="max-w-6xl mx-auto bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-red-900/20 shadow-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6">
           {phases.map((phase, index) => (
             <div
               key={index}
-              className={`rounded-xl p-6 border ${
+              className={`rounded-xl p-4 md:p-6 border ${
                 phase.status === "completed"
                   ? "border-green-600/30 bg-green-900/10"
                   : phase.status === "in-progress"
@@ -74,35 +74,35 @@ export default function Roadmap() {
                     : "border-gray-600/30 bg-gray-900/10"
               }`}
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm px-3 py-1 rounded-full bg-[#1A0505]/50 border border-red-900/20">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                <span className="text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full bg-[#1A0505]/50 border border-red-900/20">
                   {phase.timeframe}
                 </span>
                 {phase.status === "completed" ? (
-                  <span className="text-green-500 flex items-center text-sm">
-                    <CheckCircle size={16} className="mr-1" /> Complete
+                  <span className="text-green-500 flex items-center text-xs sm:text-sm">
+                    <CheckCircle size={14} className="mr-1" /> Complete
                   </span>
                 ) : phase.status === "in-progress" ? (
-                  <span className="text-yellow-500 flex items-center text-sm">
-                    <Clock size={16} className="mr-1" /> In Progress
+                  <span className="text-yellow-500 flex items-center text-xs sm:text-sm">
+                    <Clock size={14} className="mr-1" /> In Progress
                   </span>
                 ) : (
-                  <span className="text-gray-400 flex items-center text-sm">
-                    <Clock size={16} className="mr-1" /> Planned
+                  <span className="text-gray-400 flex items-center text-xs sm:text-sm">
+                    <Clock size={14} className="mr-1" /> Planned
                   </span>
                 )}
               </div>
 
-              <h3 className="text-xl font-bold mb-2">{phase.title}</h3>
-              <p className="text-gray-300 text-sm mb-4">{phase.description}</p>
+              <h3 className="text-lg md:text-xl font-bold mb-2">{phase.title}</h3>
+              <p className="text-gray-300 text-xs sm:text-sm mb-4">{phase.description}</p>
 
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {phase.milestones.map((milestone, i) => (
                   <div key={i} className="flex items-start">
-                    <div className={`mt-1 mr-3 ${milestone.completed ? "text-green-500" : "text-gray-500"}`}>
-                      {milestone.completed ? <CheckCircle size={16} /> : <Clock size={16} />}
+                    <div className={`mt-1 mr-2 md:mr-3 ${milestone.completed ? "text-green-500" : "text-gray-500"}`}>
+                      {milestone.completed ? <CheckCircle size={14} /> : <Clock size={14} />}
                     </div>
-                    <span className={`text-sm ${milestone.completed ? "text-gray-200" : "text-gray-400"}`}>
+                    <span className={`text-xs sm:text-sm ${milestone.completed ? "text-gray-200" : "text-gray-400"}`}>
                       {milestone.name}
                     </span>
                   </div>
@@ -113,27 +113,27 @@ export default function Roadmap() {
         </div>
       </div>
 
-      <div className="mt-12 max-w-6xl mx-auto">
-        <div className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20 shadow-lg">
-          <h3 className="text-xl font-bold mb-4">Long-term Vision</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="mt-8 md:mt-12 max-w-6xl mx-auto">
+        <div className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-red-900/20 shadow-lg">
+          <h3 className="text-lg md:text-xl font-bold mb-4">Long-term Vision</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <div className="space-y-2">
-              <h4 className="font-bold text-red-500">2024</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="font-bold text-red-500 text-sm md:text-base">2024</h4>
+              <p className="text-gray-300 text-xs sm:text-sm">
                 Establish VaultQuest as the leading prize savings protocol across multiple blockchains with a
                 comprehensive ecosystem of tools and integrations.
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-bold text-red-500">2025</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="font-bold text-red-500 text-sm md:text-base">2025</h4>
+              <p className="text-gray-300 text-xs sm:text-sm">
                 Expand to traditional finance through strategic partnerships, bringing prize savings to millions of
                 users worldwide through both DeFi and CeFi channels.
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="font-bold text-red-500">2026+</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="font-bold text-red-500 text-sm md:text-base">2026+</h4>
+              <p className="text-gray-300 text-xs sm:text-sm">
                 Transform global savings behavior by making prize-linked savings the default option for individuals and
                 institutions seeking yield on their assets.
               </p>

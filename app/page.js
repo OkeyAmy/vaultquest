@@ -18,16 +18,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1A0505] to-[#2D0A0A] text-white">
       <Navbar />
-      <main>
+      <main className="pt-16">
         <Hero />
         <Stats />
-        <SupportedChains />
+        {/* <SupportedChains /> */}
         <SavingAndWinning />
         <WhyPrizeSavings />
-        <Technology />
-        <Roadmap />
-        <GetInvolved />
-        <FAQ />
+        {/* <Technology /> */}
+        {/* <Roadmap /> */}
+        {/* <GetInvolved /> */}
+        {/* <FAQ /> */}
       </main>
 
       <Footer />
