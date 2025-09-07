@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus, Users, TrendingUp, Wallet } from "lucide-react";
 import CreateVaultModal from "@/components/app/CreateVaultModal";
 import DepositModal from "@/components/app/DepositModal";
-import { AtomIcon } from "@/components/icons/AtomIcon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Wagmi imports
@@ -70,8 +69,23 @@ export default function VaultPage() {
 				...vaultData,
 				functionName: "getVaultInfo",
 				args: [i],
-			}))
-			: [],
+			})) : [],
+	});
+
+	// NEW: Fetch depositor balances for the connected address across all vaults
+	const {
+		data: depositorBalancesData,
+		isLoading: isLoadingDepositorBalances,
+		refetch: refetchDepositorBalances,
+	} = useReadContracts({
+		contracts:
+			address && totalVaults
+				? Array.from({ length: Number(totalVaults) }, (_, i) => ({
+					...vaultData,
+					functionName: "getDepositorBalance",
+					args: [i, address],
+				}))
+				: [],
 	});
 
 	// Contract writes
@@ -86,13 +100,15 @@ export default function VaultPage() {
 		hash,
 	});
 
-	// Refetch vaults after confirmation
+	// Refetch vaults and depositor balances after confirmation
 	useEffect(() => {
 		if (isConfirmed) {
 			setSuccess(true);
 			setTimeout(() => {
 				refetchVaults();
 				refetchTotalVaults();
+				// NEW: refresh depositor balances too
+				refetchDepositorBalances();
 				setSubmitted(false);
 				setSuccess(false);
 				setIsCreateModalOpen(false);
@@ -100,7 +116,14 @@ export default function VaultPage() {
 			}, 2500); // wait for 2.5 secs to show success message
 
 		}
-	}, [isConfirmed, refetchVaults, refetchTotalVaults]);
+	}, [isConfirmed, refetchVaults, refetchTotalVaults, refetchDepositorBalances]);
+
+	// Refetch depositor balances whenever address or totalVaults changes
+	useEffect(() => {
+		if (address && totalVaults) {
+			refetchDepositorBalances();
+		}
+	}, [address, totalVaults, refetchDepositorBalances]);
 
 	// Helper function to format vault data
 	const formatVaultForDisplay = (vaultData, vaultId) => {
@@ -145,7 +168,7 @@ export default function VaultPage() {
 			apy: annualRate,
 			tvl: formattedTVL,
 			tvlToken: tokenSymbol,
-			balance: 0,
+			balance: 0, // will be populated from depositorBalancesData when available
 			balanceToken: tokenSymbol,
 			users: Number(depositorCount) || 0,
 			token,
@@ -154,8 +177,27 @@ export default function VaultPage() {
 		};
 	};
 
+	// Build blockchainVaults and inject depositor balance for connected address
 	const blockchainVaults =
-		vaultsData?.map((vaultInfo, index) => formatVaultForDisplay(vaultInfo, index)) || [];
+		vaultsData
+			?.map((vaultInfo, index) => {
+				const vault = formatVaultForDisplay(vaultInfo, index);
+
+				// depositorBalancesData entries come in the same order as the contracts array
+				const depositorResult = depositorBalancesData?.[index]?.result || null;
+				if (depositorResult) {
+					const principal = depositorResult[0] ?? null;
+					const currentInterest = depositorResult[1] ?? null;
+
+					const principalNum = principal ? Number(formatEther(principal)) : 0;
+					const interestNum = currentInterest ? Number(formatEther(currentInterest)) : 0;
+
+					vault.balance = principalNum + interestNum;
+					vault.balanceToken = vault.tvlToken;
+				}
+
+				return vault;
+			}) || [];
 
 	// Filter vaults
 	const filteredVaults = blockchainVaults
@@ -183,20 +225,6 @@ export default function VaultPage() {
 
 		setSubmitted(true);
 	};
-
-	// const handleFundVault = () => {
-	//   if (vaultId === undefined || vaultId === null) return;
-	//   console.log("depositing....", parseEther(depositAmount));
-
-	//   writeContract({
-	//     ...vaultData,
-	//     functionName: "deposit",
-	//     args: [vaultId, parseEther(depositAmount)], //let the 2 be the same for now
-	//     value: parseEther(depositAmount),
-	//   });
-
-	//   setSubmitted(true);
-	// };
 
 	const handleFundVault = async () => {
 		if (!depositAmount || Number(depositAmount) <= 0) {
@@ -332,7 +360,7 @@ export default function VaultPage() {
 						</div>
 
 						<div className="mb-6 text-sm text-gray-400">
-							Total Vaults: {totalVaults ? Number(totalVaults) : 0} | Admin:{" "}
+							Total Vaults: {totalVaults ? Number(totalVaults) : 0} | Admin: {" "}
 							{adminWallet
 								? `${adminWallet.slice(0, 6)}...${adminWallet.slice(-4)}`
 								: "Loading..."}
@@ -419,7 +447,6 @@ export default function VaultPage() {
 							)}
 						</div>
 					</div>
-
 					{filteredVaults.length > 0 && (
 						<div className="bg-[#1A0808]/50 backdrop-blur-sm rounded-xl border border-red-900/20 p-6 shadow-lg">
 							<Tabs defaultValue="stats" className="w-full">
