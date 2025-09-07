@@ -76,7 +76,7 @@ VaultQuest leverages tokenized vaults built on the ERC4626 standard—a modern E
 │   │   ├── CreateVaultModal.jsx
 │   │   └── DepositModal.jsx
 │   ├── icons
-│   │   └── AtomIcon.jsx
+│   │   └── EthIcon.jsx
 │   └── ... (additional components)
 ├── hooks
 ├── lib

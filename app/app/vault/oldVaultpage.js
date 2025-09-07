@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus, Users, TrendingUp, Wallet } from "lucide-react";
 import CreateVaultModal from "@/components/app/CreateVaultModal";
 import DepositModal from "@/components/app/DepositModal";
-import { AtomIcon } from "@/components/icons/AtomIcon";
+import { EthIcon } from "@/components/icons/EthIcon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function VaultPage() {
@@ -187,7 +187,7 @@ export default function VaultPage() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                       <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
-                        <AtomIcon className="w-6 h-6" />
+                        <EthIcon className="w-6 h-6" />
                       </div>
                       <div>
                         <div className="font-medium">{vault.name}</div>
@@ -277,7 +277,7 @@ export default function VaultPage() {
                               <td className="py-4">
                                 <div className="flex items-center gap-2">
                                   <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
-                                    <AtomIcon className="w-5 h-5" />
+                                    <EthIcon className="w-5 h-5" />
                                   </div>
                                   <span>{vault.name}</span>
                                 </div>
