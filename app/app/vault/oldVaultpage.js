@@ -50,13 +50,13 @@ export default function VaultPage() {
     },
     {
       id: 3,
-      name: "Prize Atom",
+      name: "Prize Eth",
       network: "Cosmos",
       apy: 14.25,
       tvl: 980000,
-      tvlToken: "Atom",
+      tvlToken: "Eth",
       balance: 0,
-      balanceToken: "Atom",
+      balanceToken: "Eth",
       users: 654,
       deposits: [
         { address: "cosm...gsye20", amount: 300, date: "2023-12-14" },
@@ -153,15 +153,15 @@ export default function VaultPage() {
                     }`}
                     onClick={() => setActiveFilter("Cosmos")}
                   >
-                    Atom
+                    Eth
                   </button>
                   <button
                     className={`px-3 py-1 rounded-full text-sm ${
-                      activeFilter === "Atom"
+                      activeFilter === "Eth"
                         ? "bg-red-600"
                         : "hover:bg-[#3A0A0A]"
                     }`}
-                    onClick={() => setActiveFilter("Atom")}
+                    onClick={() => setActiveFilter("Eth")}
                   >
                     Cosmos
                   </button>
