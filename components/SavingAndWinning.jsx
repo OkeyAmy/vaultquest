@@ -19,7 +19,7 @@ export default function SavingAndWinning() {
     {
       id: 2,
       title: "Win Prizes",
-      description: "Yield fron deposit fund prize",
+      description: "Yield from deposit fund prize",
       image: "/images/percentage.png",
       rotate: 0,
     },
@@ -33,14 +33,15 @@ export default function SavingAndWinning() {
   ];
 
   return (
-		<div className="min-h-screen  flex flex-col items-center justify-center overflow-hidden">
-			<h1 className="text-4xl md:text-5xl font-bold text-white mb-20 text-center px-4">
+		<div className="min-h-screen flex flex-col items-center justify-center overflow-hidden py-12 sm:py-16">
+			<h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 sm:mb-16 md:mb-20 text-center px-4">
 				VaultQuest is for Saving & Winning
 			</h1>
 
+			{/* Desktop 3D Cards */}
 			<div
 				ref={ref}
-				className="relative w-full max-w-[1200px] h-[400px] flex items-center justify-center"
+				className="hidden lg:block relative w-full max-w-[1200px] h-[400px] flex items-center justify-center"
 			>
 				<div className="relative w-[300px] h-[400px] perspective-[1000px]">
 					{cards.map((card, index) => (
@@ -92,6 +93,58 @@ export default function SavingAndWinning() {
 									{card.title}
 								</h2>
 								<p className="text-gray-400">{card.description}</p>
+							</div>
+						</motion.div>
+					))}
+				</div>
+			</div>
+
+			{/* Mobile/Tablet Stacked Cards */}
+			<div className="lg:hidden w-full max-w-md mx-auto px-4">
+				<div className="space-y-6">
+					{cards.map((card, index) => (
+						<motion.div
+							key={card.id}
+							className="w-full h-48 sm:h-56 rounded-2xl bg-[#2A0A0A] 
+                         shadow-[0_0_20px_rgba(0,0,0,0.3)] backdrop-blur-sm 
+                         flex items-center p-4 sm:p-6 overflow-hidden"
+							initial={{
+								opacity: 0,
+								y: 50,
+							}}
+							animate={
+								isInView
+									? {
+											opacity: 1,
+											y: 0,
+											transition: {
+												duration: 0.6,
+												delay: index * 0.2,
+												ease: [0.23, 1, 0.32, 1],
+											},
+									  }
+									: {}
+							}
+						>
+							{/* Image */}
+							<div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden flex-shrink-0">
+								<Image
+									src={card.image}
+									alt={card.title}
+									layout="fill"
+									objectFit="cover"
+									className="rounded-xl"
+								/>
+							</div>
+
+							{/* Text Content */}
+							<div className="ml-4 sm:ml-6 flex-1">
+								<h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
+									{card.title}
+								</h2>
+								<p className="text-sm sm:text-base text-gray-400">
+									{card.description}
+								</p>
 							</div>
 						</motion.div>
 					))}
