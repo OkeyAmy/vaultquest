@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import AppNav from "@/components/app/AppNav";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { AtomIcon } from "@/components/icons/AtomIcon";
 import DepositModal from "@/components/app/DepositModal";
 import WithdrawModal from "@/components/app/WithdrawModal";
 import { Bar } from "react-chartjs-2";
@@ -18,6 +17,7 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
+import Image from "next/image";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -32,8 +32,8 @@ export default function PrizePage() {
 		lastDeposits: 4330.0,
 		totalDeposited: 2300000,
 		tvl: 2324058,
-		protocol: "Cosmos",
-		protocolUrl: "cosmos.network",
+		protocol: "Avalanche",
+		protocolUrl: "avalanche.network",
 		apr: 13.1,
 		distribution: "Every 7 day",
 		nextDrop: "in 3 days",
@@ -45,9 +45,9 @@ export default function PrizePage() {
 			{ amount: 0.21, frequency: "1024x Daily" },
 		],
 		winners: [
-			{ id: "cosm...gj90rc", date: "January 18", prize: "G0008 Atom" },
-			{ id: "cosm...gsye20", date: "January 18", prize: "G0009 Atom" },
-			{ id: "cosm...hjue79", date: "January 18", prize: "G0008 Atom" },
+			{ id: "0x34cgj90rc", date: "July 18", prize: "4.234 Avax" },
+			{ id: "0x34cgsye20", date: "August 28", prize: "0.168 Avax" },
+			{ id: "0x34chjue79", date: "September 5", prize: "4.234 Avax" },
 		],
 		chartData: [65, 45, 30, 60, 45, 30, 70, 45],
 	};
@@ -120,7 +120,8 @@ export default function PrizePage() {
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						<div className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20 shadow-lg">
 							<div className="flex items-center gap-2 mb-4">
-								<AtomIcon className="w-5 h-5" />
+								{/* <AvaxIcon className="w-5 h-5" /> */}
+								<Image src="/images/avax.png" height={20} width={20} alt="avax" />
 								<span className="text-sm text-gray-400">Last 24h Deposits</span>
 							</div>
 							<div className="text-3xl font-bold">

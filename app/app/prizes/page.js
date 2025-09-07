@@ -6,7 +6,6 @@ import AppNav from "@/components/app/AppNav"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-// import { AtomIcon } from "@/components/icons/AtomIcon"
 import DepositModal from "@/components/app/DepositModal"
 
 export default function PrizesPage() {

@@ -18,175 +18,197 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 
-export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
-	const [formData, setFormData] = useState({
-		name: "",
-		token: "",
-		network: "",
-		yieldSource: "",
-		drawDuration: "",
-	});
-	const [isConnected, setIsConnected] = useState(false);
-	const [isProcessing, setIsProcessing] = useState(false);
+export default function CreateVaultModal({
+	isOpen,
+	onClose,
+	onCreateVault,
+	vaultName,
+	setVaultName,
+	vaultToken,
+	setVaultToken,
+	vaultDuration,
+	setVaultDuration,
+	vaultInterestRate,
+	setVaultInterestRate,
+	isPending
+}) {
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState(false);
 
-	const handleChange = (field, value) => {
-		setFormData((prev) => ({
-			...prev,
-			[field]: value,
-		}));
-		setError("");
-	};
+	// Token options with their contract addresses
+	const tokenOptions = [
+		{ value: "0x0000000000000000000000000000000000000000", label: "ETH (Native)", symbol: "ETH" },
+		{ value: "0xA0b86a33E6441893F6f7AD06c28f5BAA7D4b0D16", label: "USDC", symbol: "USDC" },
+		{ value: "0xdAC17F958D2ee523a2206206994597C13D831ec7", label: "USDT", symbol: "USDT" },
+		{ value: "0x6B175474E89094C44Da98b954EedeAC495271d0F", label: "DAI", symbol: "DAI" },
+		{ value: "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14", label: "WETH", symbol: "WETH" }
+	];
 
-	const handleConnect = () => {
-		setIsConnected(true);
-	};
+	// Duration options in hours (will be converted to seconds in parent)
+	const durationOptions = [
+		{ value: 24, label: "1 Day" },
+		{ value: 168, label: "1 Week" },
+		{ value: 336, label: "2 Weeks" },
+		{ value: 720, label: "1 Month" },
+		{ value: 2160, label: "3 Months" },
+		{ value: 4320, label: "6 Months" },
+		{ value: 8760, label: "1 Year" }
+	];
 
 	const handleCreate = () => {
-		// Validate form
-		if (
-			!formData.name ||
-			!formData.token ||
-			!formData.network ||
-			!formData.yieldSource ||
-			!formData.drawDuration
-		) {
-			setError("Please fill in all fields");
+		// Validate form data
+		if (!vaultName.trim()) {
+			setError("Please enter a vault name");
+			return;
+		}
+
+		if (!vaultToken) {
+			setError("Please select a token");
+			return;
+		}
+
+		if (!vaultDuration || vaultDuration <= 0) {
+			setError("Please select a valid duration");
+			return;
+		}
+
+		if (!vaultInterestRate || vaultInterestRate <= 0 || vaultInterestRate > 10000) {
+			setError("Interest rate must be between 0.01% and 100%");
 			return;
 		}
 
 		setError("");
-		setIsProcessing(true);
 
-		// Simulate processing
+		// Call the parent's create vault function
+		if (onCreateVault) {
+			onCreateVault();
+		}
+	};
+
+	const handleClose = () => {
+		// Reset form when closing
+		setError("");
+		setSuccess(false);
+		onClose();
+	};
+
+	// Handle successful transaction (would be triggered from parent)
+	const handleSuccess = () => {
+		setSuccess(true);
 		setTimeout(() => {
-			setIsProcessing(false);
-			setSuccess(true);
-
-			// Call the onCreateVault callback if provided
-			if (onCreateVault) {
-				onCreateVault(formData);
-			}
-
-			// Close modal after success
-			setTimeout(() => {
-				onClose();
-				// Reset form
-				setFormData({
-					name: "",
-					token: "",
-					network: "",
-					yieldSource: "",
-					drawDuration: "",
-				});
-				setSuccess(false);
-			}, 1500);
-		}, 1000);
+			handleClose();
+		}, 2000);
 	};
 
 	return (
-		<Dialog open={isOpen} onOpenChange={onClose}>
+		<Dialog open={isOpen} onOpenChange={handleClose}>
 			<DialogContent className="bg-[#1A0808]/90 backdrop-blur-sm border border-red-900/20 text-white sm:max-w-[425px] shadow-lg">
 				<DialogHeader className="flex flex-row items-center justify-between">
 					<DialogTitle>Create A Vault</DialogTitle>
-					<button onClick={onClose} className="text-gray-400 hover:text-white">
+					<button onClick={handleClose} className="text-gray-400 hover:text-white">
 						<X className="h-4 w-4" />
 					</button>
 				</DialogHeader>
 
 				<div className="py-4 space-y-4">
+					{/* Vault Name Input */}
 					<div>
 						<label className="text-sm text-gray-400 mb-1 block">
 							Vault Name
 						</label>
 						<Input
-							placeholder="e.g. Prize USDC"
+							placeholder="e.g. ETH Savings Vault"
 							className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20"
-							value={formData.name}
-							onChange={(e) => handleChange("name", e.target.value)}
-							disabled={isProcessing || success}
+							value={vaultName}
+							onChange={(e) => {
+								setVaultName(e.target.value);
+								setError("");
+							}}
+							disabled={isPending || success}
 						/>
 					</div>
 
+					{/* Token Selection */}
 					<div>
 						<label className="text-sm text-gray-400 mb-1 block">Token</label>
 						<Select
-							value={formData.token}
-							onValueChange={(value) => handleChange("token", value)}
-							disabled={isProcessing || success}
+							value={vaultToken}
+							onValueChange={(value) => {
+								setVaultToken(value);
+								setError("");
+							}}
+							disabled={isPending || success}
 						>
 							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
 								<SelectValue placeholder="Select Token" />
 							</SelectTrigger>
-							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
-								<SelectItem value="usdc">USDC</SelectItem>
-								<SelectItem value="dai">Atom</SelectItem>
-								<SelectItem value="usdt">USDT</SelectItem>
-								<SelectItem value="sol">Atom</SelectItem>
+							<SelectContent className="bg-[#1A0808] border border-red-900/20">
+								{tokenOptions.map((token) => (
+									<SelectItem key={token.value} value={token.value}>
+										{token.label}
+									</SelectItem>
+								))}
 							</SelectContent>
 						</Select>
+						<p className="text-xs text-gray-500 mt-1">
+							Selected: {tokenOptions.find(t => t.value === vaultToken)?.label || "None"}
+						</p>
 					</div>
 
-					<div>
-						<label className="text-sm text-gray-400 mb-1 block">Network</label>
-						<Select
-							value={formData.network}
-							onValueChange={(value) => handleChange("network", value)}
-							disabled={isProcessing || success}
-						>
-							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
-								<SelectValue placeholder="Select Network" />
-							</SelectTrigger>
-							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
-								<SelectItem value="solana">Atom</SelectItem>
-								<SelectItem value="ethereum">Cosmos</SelectItem>
-							</SelectContent>
-						</Select>
-					</div>
-
+					{/* Duration Selection */}
 					<div>
 						<label className="text-sm text-gray-400 mb-1 block">
-							Yield Source
+							Lock Duration
 						</label>
 						<Select
-							value={formData.yieldSource}
-							onValueChange={(value) => handleChange("yieldSource", value)}
-							disabled={isProcessing || success}
+							value={vaultDuration.toString()}
+							onValueChange={(value) => {
+								setVaultDuration(Number(value));
+								setError("");
+							}}
+							disabled={isPending || success}
 						>
 							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
-								<SelectValue placeholder="Select Yield Source" />
+								<SelectValue placeholder="Select Duration" />
 							</SelectTrigger>
-							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
-								<SelectItem value="aave">Cosmo</SelectItem>
-								<SelectItem value="compound">Compound</SelectItem>
-								<SelectItem value="lido">Lido</SelectItem>
-								<SelectItem value="marinade">Marinade</SelectItem>
+							<SelectContent className="bg-[#1A0808] border border-red-900/20">
+								{durationOptions.map((duration) => (
+									<SelectItem key={duration.value} value={duration.value.toString()}>
+										{duration.label}
+									</SelectItem>
+								))}
 							</SelectContent>
 						</Select>
+						<p className="text-xs text-gray-500 mt-1">
+							Users can withdraw early without interest
+						</p>
 					</div>
 
+					{/* Interest Rate Input */}
 					<div>
 						<label className="text-sm text-gray-400 mb-1 block">
-							Draw Duration
+							Annual Interest Rate (%)
 						</label>
-						<Select
-							value={formData.drawDuration}
-							onValueChange={(value) => handleChange("drawDuration", value)}
-							disabled={isProcessing || success}
-						>
-							<SelectTrigger className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20">
-								<SelectValue placeholder="Select Draw Duration" />
-							</SelectTrigger>
-							<SelectContent className="bg-[#f3eeee] border border-red-900/20">
-								<SelectItem value="daily">Daily</SelectItem>
-								<SelectItem value="weekly">Weekly</SelectItem>
-								<SelectItem value="biweekly">Bi-weekly</SelectItem>
-								<SelectItem value="monthly">Monthly</SelectItem>
-							</SelectContent>
-						</Select>
+						<Input
+							type="number"
+							placeholder="e.g. 5"
+							min="0.01"
+							max="100"
+							step="0.01"
+							className="bg-[#2A0A0A]/80 backdrop-blur-sm border-red-900/20"
+							value={vaultInterestRate}
+							onChange={(e) => {
+								setVaultInterestRate(Number(e.target.value));
+								setError("");
+							}}
+							disabled={isPending || success}
+						/>
+						<p className="text-xs text-gray-500 mt-1">
+							Interest only paid after lock period expires
+						</p>
 					</div>
 
+					{/* Error Display */}
 					{error && (
 						<div className="flex items-center gap-2 text-red-500 text-sm">
 							<AlertCircle size={16} />
@@ -194,30 +216,39 @@ export default function CreateVaultModal({ isOpen, onClose, onCreateVault }) {
 						</div>
 					)}
 
+					{/* Success Display */}
 					{success && (
 						<div className="bg-green-900/20 text-green-500 p-3 rounded-md text-sm flex items-center gap-2">
 							<Check size={16} />
 							Vault created successfully!
 						</div>
 					)}
+
+					{/* Transaction Status */}
+					{isPending && (
+						<div className="bg-blue-900/20 text-blue-500 p-3 rounded-md text-sm flex items-center gap-2">
+							<div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+							Transaction pending...
+						</div>
+					)}
 				</div>
 
-				{!isConnected ? (
-					<Button
-						className="w-full bg-red-600 hover:bg-red-700"
-						onClick={handleConnect}
-					>
-						Connect Wallet
-					</Button>
-				) : (
-					<Button
-						className="w-full bg-red-600 hover:bg-red-700"
-						onClick={handleCreate}
-						disabled={isProcessing || success}
-					>
-						{isProcessing ? "Processing..." : "Create Vault"}
-					</Button>
-				)}
+				{/* Form Summary */}
+				<div className="bg-[#2A0A0A]/50 p-3 rounded-md text-xs text-gray-400 space-y-1">
+					<div>Name: {vaultName || "Not set"}</div>
+					<div>Token: {tokenOptions.find(t => t.value === vaultToken)?.symbol || "Not selected"}</div>
+					<div>Duration: {durationOptions.find(d => d.value === vaultDuration)?.label || "Not selected"}</div>
+					<div>APY: {vaultInterestRate || 0}%</div>
+				</div>
+
+				{/* Create Button */}
+				<Button
+					className="w-full bg-red-600 hover:bg-red-700"
+					onClick={handleCreate}
+					disabled={isPending || success}
+				>
+					{isPending ? "Creating Vault..." : success ? "Vault Created!" : "Create Vault"}
+				</Button>
 			</DialogContent>
 		</Dialog>
 	);

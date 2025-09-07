@@ -9,6 +9,7 @@ import { WagmiProvider } from 'wagmi';
 import {
   avalancheFuji,
   avalanche,
+  sepolia
 } from 'wagmi/chains';
 import {
   QueryClientProvider,
@@ -18,7 +19,7 @@ import {
 const config = getDefaultConfig({
   appName: 'My Avalanche Dapp',
   projectId: 'YOUR_PROJECT_ID',
-  chains: [avalancheFuji, avalanche],
+  chains: [sepolia, avalancheFuji, avalanche],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
