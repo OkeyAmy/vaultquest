@@ -8,6 +8,7 @@ import { Search, Plus, Users, TrendingUp, Wallet } from "lucide-react";
 import CreateVaultModal from "@/components/app/CreateVaultModal";
 import DepositModal from "@/components/app/DepositModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import RecentDeposits from "@/components/RecentDeposits";
 
 // Wagmi imports
 import {
@@ -69,10 +70,11 @@ export default function VaultPage() {
 				...vaultData,
 				functionName: "getVaultInfo",
 				args: [i],
-			})) : [],
+			}))
+			: [],
 	});
 
-	// NEW: Fetch depositor balances for the connected address across all vaults
+	// Read depositor balances for connected address 
 	const {
 		data: depositorBalancesData,
 		isLoading: isLoadingDepositorBalances,
@@ -87,6 +89,57 @@ export default function VaultPage() {
 				}))
 				: [],
 	});
+
+	// ---------- NEW wagmi reads: ------------
+	// 1) For each vault, call getVaultDepositors(vaultId)
+	const {
+		data: vaultDepositorsData,
+		isLoading: isLoadingVaultDepositors,
+		refetch: refetchVaultDepositors,
+	} = useReadContracts({
+		contracts: totalVaults
+			? Array.from({ length: Number(totalVaults) }, (_, i) => ({
+				...vaultData,
+				functionName: "getVaultDepositors",
+				args: [i],
+			}))
+			: [],
+	});
+
+	// 2) Build flattened contracts array for getDepositorBalance(vaultId, depositor)
+	// Also build depositorMeta to map results back to vault + depositor address
+	let depositorBalanceContracts = [];
+	let depositorMeta = [];
+
+	if (vaultDepositorsData && vaultDepositorsData.length > 0) {
+		vaultDepositorsData.forEach((entry, vaultIndex) => {
+			const addrs = entry?.result || [];
+			addrs.forEach((addr) => {
+				depositorBalanceContracts.push({
+					...vaultData,
+					functionName: "getDepositorBalance",
+					args: [vaultIndex, addr],
+				});
+				depositorMeta.push({
+					vaultId: vaultIndex,
+					vaultName:
+						// vault name comes from the earlier getVaultInfo result mapped later,
+						// we'll fall back to `Vault ${vaultIndex}` if not ready
+						(vaultsData && vaultsData[vaultIndex]?.result?.[0]) || `Vault ${vaultIndex}`,
+					address: addr,
+				});
+			});
+		});
+	}
+
+	const {
+		data: depositorBalancesAllData,
+		isLoading: isLoadingAllDepositorBalances,
+		refetch: refetchAllDepositorBalances,
+	} = useReadContracts({
+		contracts: depositorBalanceContracts.length ? depositorBalanceContracts : [],
+	});
+	// ---------- END NEW wagmi reads ------------
 
 	// Contract writes
 	const { writeContract, isPending, data: hash } = useWriteContract();
@@ -107,16 +160,25 @@ export default function VaultPage() {
 			setTimeout(() => {
 				refetchVaults();
 				refetchTotalVaults();
-				// NEW: refresh depositor balances too
+				// refresh depositor balances for connected address
 				refetchDepositorBalances();
+				// NEW: refresh depositors and all depositor balances
+				refetchVaultDepositors();
+				refetchAllDepositorBalances();
 				setSubmitted(false);
 				setSuccess(false);
 				setIsCreateModalOpen(false);
 				setIsDepositModalOpen(false);
 			}, 2500); // wait for 2.5 secs to show success message
-
 		}
-	}, [isConfirmed, refetchVaults, refetchTotalVaults, refetchDepositorBalances]);
+	}, [
+		isConfirmed,
+		refetchVaults,
+		refetchTotalVaults,
+		refetchDepositorBalances,
+		refetchVaultDepositors,
+		refetchAllDepositorBalances,
+	]);
 
 	// Refetch depositor balances whenever address or totalVaults changes
 	useEffect(() => {
@@ -198,6 +260,39 @@ export default function VaultPage() {
 
 				return vault;
 			}) || [];
+
+	// ---------- Build globalDeposits from depositorBalancesAllData + depositorMeta ----------
+	let globalDeposits = [];
+
+	if (depositorBalancesAllData && depositorMeta && depositorMeta.length) {
+		globalDeposits = depositorBalancesAllData
+			.map((entry, idx) => {
+				const meta = depositorMeta[idx];
+				if (!entry || !meta) return null;
+
+				const principal = entry?.result?.[0] ?? 0;
+				const currentInterest = entry?.result?.[1] ?? 0;
+
+				const principalNum = principal ? Number(formatEther(principal)) : 0;
+				const interestNum = currentInterest ? Number(formatEther(currentInterest)) : 0;
+				const amount = principalNum + interestNum;
+
+				if (amount <= 0) return null;
+
+				return {
+					vaultId: meta.vaultId,
+					vaultName: meta.vaultName,
+					address: meta.address,
+					amount,
+					// placeholder timestamp for now (as agreed) — we can replace with real tx timestamp later
+					date: new Date().toISOString(),
+				};
+			})
+			.filter(Boolean);
+
+		// sort newest → oldest (we're using the placeholder timestamp)
+		globalDeposits.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+	}
 
 	// Filter vaults
 	const filteredVaults = blockchainVaults
@@ -447,13 +542,22 @@ export default function VaultPage() {
 							)}
 						</div>
 					</div>
+
 					{filteredVaults.length > 0 && (
 						<div className="bg-[#1A0808]/50 backdrop-blur-sm rounded-xl border border-red-900/20 p-6 shadow-lg">
-							<Tabs defaultValue="stats" className="w-full">
+							{/* Updated Tabs: added Recent Deposits tab (global) */}
+							<Tabs defaultValue="deposits" className="w-full">
 								<TabsList className="bg-[#2A0A0A]/80 border border-red-900/10 mb-6">
+									<TabsTrigger value="deposits">Recent Deposits</TabsTrigger>
 									<TabsTrigger value="stats">Vault Statistics</TabsTrigger>
 								</TabsList>
 
+								{/* Recent Deposits (global feed) */}
+								<TabsContent value="deposits">
+									<RecentDeposits deposits={globalDeposits} />
+								</TabsContent>
+
+								{/* Vault statisticsvaultId */}
 								<TabsContent value="stats">
 									<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 										<div className="bg-[#1A0808]/70 backdrop-blur-sm rounded-xl p-6 border border-red-900/20">
