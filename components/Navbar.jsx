@@ -1,44 +1,101 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <header className="container mx-auto px-4 py-6 z-10 relative">
-      <nav className="flex items-center justify-between backdrop-blur-sm bg-[#1A0505]/70 rounded-xl p-4 border border-red-900/20">
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/images/logo.png"
-            alt="VaultQuest Logo"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-          <span className="text-xl font-bold">
-            Vault<span className="text-red-600">Quest</span>
-          </span>
-        </Link>
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-red-500">
-            Home
+    <header className="fixed top-0 left-0 right-0 bg-[#10020233] border-b border-red-900/20 z-50">
+      <div className="container mx-auto px-4">
+        <nav className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/images/logo.png"
+              alt="VaultQuest Logo"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <span className="text-lg font-bold text-white">
+              Vault<span className="text-red-500">Quest</span>
+            </span>
           </Link>
-          <Link
-            href="/winners"
-            className="text-gray-300 hover:text-white transition-colors"
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/" className="text-red-500 hover:text-red-400 transition-colors">
+              Home
+            </Link>
+            <Link
+              href="/winners"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Winners
+            </Link>
+            <Link
+              href="/doc"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Doc
+            </Link>
+            <Link href="/app">
+              <Button className="bg-red-600 hover:bg-red-700 text-white px-6">
+                Launch DApp
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden flex flex-col gap-1 p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
-            Winners
-          </Link>
-          <Link
-            href="/doc"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
-            Doc
-          </Link>
-        </div>
-        <Link href="/app">
-          <Button className="bg-red-600 hover:bg-red-700">Launch DApp</Button>
-        </Link>
-      </nav>
+            <span className="w-6 h-0.5 bg-white transition-all duration-300"></span>
+            <span className="w-6 h-0.5 bg-white transition-all duration-300"></span>
+            <span className="w-6 h-0.5 bg-white transition-all duration-300"></span>
+          </button>
+        </nav>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-red-900/20 py-4">
+            <div className="flex flex-col gap-4">
+              <Link 
+                href="/" 
+                className="text-red-500 hover:text-red-400 transition-colors px-2 py-1"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/winners"
+                className="text-gray-300 hover:text-white transition-colors px-2 py-1"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Winners
+              </Link>
+              <Link
+                href="/doc"
+                className="text-gray-300 hover:text-white transition-colors px-2 py-1"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Doc
+              </Link>
+              <Link href="/app" onClick={() => setIsMenuOpen(false)}>
+                <Button className="bg-red-600 hover:bg-red-700 text-white w-full mt-2">
+                  Launch DApp
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 }
