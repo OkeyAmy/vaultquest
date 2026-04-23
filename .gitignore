@@ -13,6 +13,7 @@ node_modules/
 # production/build output
 /build/
 /dist/
+backend/dist/
 
 # test and coverage output
 /coverage/
@@ -25,8 +26,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
+# env files — ignore real env files but always track example templates
 .env*
+!.env.example
+!**/.env.example
 
 # local Next.js overrides
 v0-user-next.config.*
@@ -76,3 +79,11 @@ Thumbs.db
 .qodo
 .omx/
 .codex
+.remember/
+.claude/
+docs/superpowers/
+
+# editor swap files
+*.swp
+*.swo
+*~
